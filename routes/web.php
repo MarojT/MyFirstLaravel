@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,19 @@ Route::get('/', function () {
 
 Route :: get('/userform', function(){
     return view('userform');
+});
+
+Route::post('userform', function()
+{
+// Process the data here
+return Redirect::to('userresults')->withInput(Input::only('username', 'color'));
+});
+
+Route::get('userresults', function()
+{
+return 'Your username is: ' . Input::old('username')
+. '<br>Your favorite color is: '
+. Input::old('color');
 });
 
 Route :: post('/userform', function(){
